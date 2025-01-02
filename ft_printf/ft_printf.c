@@ -6,14 +6,18 @@
 /*   By: ibottice <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 16:08:23 by ibottice          #+#    #+#             */
-/*   Updated: 2025/01/02 17:09:55 by ibottice         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:01:18 by ibottice         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 void	ft_formatter(const char c, int *count, va_list args)
 {
 	if (c == 'c')
-		ft_putchar(c, );
+		ft_putchar(c, count);
+	if (c == 'd' || c == 'i')
+		ft_putnbr_base(va_arg(args, int) count);
+	if (c == 's')
+		ft_count_putchar()
 
 
 int	ft_printf(const char *format, ...)
