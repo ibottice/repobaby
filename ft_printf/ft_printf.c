@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_formatter(const char c, int *count, va_list args)
+int	ft_formatter(const char c, va_list args)
 {
+	int	count;
+
+	count = 0;
 	if (c == 'c')
-		ft_putchar(c, count);
+		count += ft_putchar((char *)va_arg(args, int));
 	if (c == 'd' || c == 'i')
-		ft_putnbr_base(va_arg(args, int) count);
+		count += ft_putnbr_base(va_arg(args, int));
 	if (c == 's')
-		ft_count_putchar()
+		count += ft_putchar()
 
 
 int	ft_printf(const char *format, ...)
@@ -34,11 +37,13 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format [i + 1])
 		{
 			i++;
-			ft_formatter(format[i], &count, args);
+			count = ft_formatter(format[i], args);
+			count++;
 		}
 		else
 		{
-			ft_count_putchar(format[i], &count);
+			ft_putchar(format[i]);
+			count++;
 		}
 		i++;
 	}
