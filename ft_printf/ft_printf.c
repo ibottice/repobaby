@@ -10,17 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_formatter(const char c, va_list args)
-{
-	int	count;
+#include "ft_printf.h"
 
-	count = 0;
+void	ft_formatter(const char c, int *count, va_list args)
+{
 	if (c == 'c')
-		count += ft_putchar((char *)va_arg(args, int));
-	if (c == 'd' || c == 'i')
-		count += ft_putnbr_base(va_arg(args, int));
-	if (c == 's')
-		count += ft_putchar()
+		ft_count_putchar(va_arg(args, char), count);
+	else if (c == 'd' || c == 'i')
+		ft_count_putnbr(va_arg(args, int), count);
+	else if (c == 's')
+		ft_count_putstr(va_arg(args, char*), count);
+	else if (c == 'u')
+		ft_count_unint(va_arg(args, unsigned int), count);
+	else if (c == 'x')
+		ft_count_low_hex(va_arg(args, unsigned int), count);
+	else if (c == 'X')
+		ft_count_up_hex(va_arg(args, unsigned int), count);
+	else if (c == 'p')
+		ft_count_ptr(va_arg(args, void *), count);
+	else if (c == %)
+		ft_count_putchar('%', count);
+}
 
 
 int	ft_printf(const char *format, ...)
@@ -37,14 +47,10 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format [i + 1])
 		{
 			i++;
-			count = ft_formatter(format[i], args);
-			count++;
+			ft_formatter(format[i], &count, args);
 		}
 		else
-		{
-			ft_putchar(format[i]);
-			count++;
-		}
+			ft_count_putchar(format[i], count);
 		i++;
 	}
 	va_end(args);
